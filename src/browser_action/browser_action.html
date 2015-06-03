@@ -1,0 +1,47 @@
+<!doctype html>
+<style type="text/css">
+	#mainPopup {
+		padding: 10px;
+		height: 600px;
+		width: 400px;
+		font-family: Helvetica, Ubuntu, Arial, sans-serif;
+	}
+	h1 {
+		font-size: 2em;
+	}
+</style>
+
+<script type="text/javascript" src="/js/angular/angular.min.js"></script>
+<script type="text/javascript" src="/js/app/app.js"></script>
+
+
+<div id="mainPopup" ng-app="devlapse" ng-csp>
+<div id="login" ng-controller="LoginControl">
+	<a href="#" ng-show="!loggedIn" ng-click="login()">Log in to imgur</a>
+	<a href="#" ng-show="loggedIn" ng-click="logout()">Log out {{username}}</a> 
+</div>
+<div id="domain-list" ng-controller="DomainListControl">
+	<ul>
+ 		<li ng-repeat="domain in domains">
+ 			<p>Host Url:<input ng-change="saveDomains()" ng-model="domain.host"></p>
+ 			<p>Album Id: <input ng-change="saveDomains()" ng-model="domain.album"></p>
+ 			<p>Time delay (after refresh): <input type="number" ng-change="saveDomains()" ng-model="domain.delay"/></p>
+ 			<p>Number of images: {{domain.count}}</p>
+ 			<p> Enabled: <input type="checkbox" ng-change="saveDomains()" ng-model="domain.enabled"/></p>
+ 			<p><a href='#' ng-click="removeDomain(item)">Remove</a>   <a href="http://imgur.com/a/{{domain.album}}" target="blank">Go to album</a></p>
+ 			<p>
+ 			<span ng-repeat="image in domain.images">
+ 				<a target="blank" href="{{image}}"><img src="{{$parent.getThumb(image)}}" width="64px" /></a>	
+ 			</span>
+ 			</p>
+ 		</li>
+ 	</ul>
+ 	
+ 	<p>Host Url: <input ng-model="newDomain.host"></p>
+ 	<p>Album Id: <input ng-model="newDomain.album"></p>
+ 	<p>Time delay (after refresh): <input type="number" ng-model="newDomain.delay"/></p>
+ 	<p> Enabled: <input type="checkbox" ng-model="newDomain.enabled"/></p>
+ 	<p><a href='#' ng-click='addDomain()'>Add</a></p>
+</div>
+ 	
+</div>
