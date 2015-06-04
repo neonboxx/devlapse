@@ -92,6 +92,7 @@ function takeScreenshot(domain, tab,callback) {
               if(domain.images.length >=10)
                 domain.images = domain.images.slice(Math.max(domain.images.length - 9, 1))
           		domain.images.push(response.data.link)
+              domain.lastimage = response.data.link
               if(typeof callback == 'function')
           			callback(domain);
 		    },

@@ -1,0 +1,24 @@
+	#mainPopup {
+		padding: 10px;
+		height: 600px;
+		width: 400px;
+		font-family: Helvetica, Ubuntu, Arial, sans-serif;
+	}
+	h1 {
+		font-size: 2em;
+	}
+	.domain-options{
+		float:right;
+	}
+	li{
+		list-style: none;	
+	}
+	ul{
+		padding: 0px;
+	}
+	.domain-body{
+		background-color: grey;
+	}
+	.domain-header,.domain-footer{
+		background-color: darkgrey;
+	}
