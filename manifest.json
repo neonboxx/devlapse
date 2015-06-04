@@ -32,5 +32,15 @@
     "identity",
     "https://api.imgur.com/oauth2/*",
     "https://api.imgur.com/*"
-  ]
+  ],
+  "oauth2":{
+    "authorize_url":"https://api.imgur.com/oauth2/authorize",
+    "refresh_url":"https://api.imgur.com/oauth2/token",
+    "client_id":"294b9e58049ee94",
+    "client_secret":"4ee2dfe26eafb786b60ac7399aa6c8b4357343e5",
+    "scopes": [
+      ""
+    ]
+  }
+
 }

@@ -1,3 +1,5 @@
+var manifest = chrome.runtime.getManifest();
+
 chrome.extension.onMessage.addListener(
   function(request, sender, sendResponse) {
   	chrome.pageAction.show(sender.tab.id);
@@ -107,12 +109,12 @@ function takeScreenshot(domain, tab,callback) {
                   var auth_params = JSON.parse(localStorage.getItem('auth_params'));
                   attempts++;
                   $.ajax({
-                      url: 'https://api.imgur.com/oauth2/token',
+                      url: manifest.oauth2.refresh_url,
                       type: 'post',
                       data: {
                           refresh_token:auth_params.refresh_token,
-                          client_id:'294b9e58049ee94',
-                          client_secret:'4ee2dfe26eafb786b60ac7399aa6c8b4357343e5',
+                          client_id:manifest.oauth2.client_id,
+                          client_secret:manifest.oauth2.client_secret,
                           grant_type:'refresh_token'
                       },
                       headers: {

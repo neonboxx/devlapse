@@ -1,4 +1,5 @@
 var devlapse = angular.module('devlapse', []);
+var manifest = chrome.runtime.getManifest();
 
 devlapse.controller('DomainListControl', function ($scope) {
   try{
@@ -43,7 +44,6 @@ devlapse.controller('DomainListControl', function ($scope) {
 
 devlapse.controller('LoginControl', function ($scope) {
 	
-	$scope.loggedIn = false;
 	var authParams = localStorage.getItem('auth_params')
 	if(authParams)
 	{
@@ -51,6 +51,11 @@ devlapse.controller('LoginControl', function ($scope) {
 		$scope.loggedIn = true;
 		$scope.username = authParams.account_username
 	}
+  else
+  {
+    $scope.loggedIn = false;
+    $scope.username = '';
+  }
 
 	$scope.logout = function(){
 		$scope.loggedIn = false
@@ -58,12 +63,12 @@ devlapse.controller('LoginControl', function ($scope) {
 		localStorage.removeItem('token')
 	}
 	$scope.login = function(){
-		var client_id = '294b9e58049ee94';
-    	var client_secret = '2293120931946b8f8174e294888a01c8f8c48edb';
-    	var state = 'nonsense'
+		var client_id = manifest.oauth2.client_id;
+  	var state = Math.random().toString(36).substring(7);
+    var authorize_url = manifest.oauth2.authorize_url;
 		chrome.identity.launchWebAuthFlow(
   			{
-  				'url': 'https://api.imgur.com/oauth2/authorize?client_id='+client_id+'&response_type=token&state='+state, 
+  				'url': authorize_url+'?client_id='+client_id+'&response_type=token&state='+state, 
   				'interactive': true
   			},
 			function(redirect_url) 	
@@ -76,6 +81,9 @@ devlapse.controller('LoginControl', function ($scope) {
         		localStorage.setItem("auth_params", JSON.stringify(authParams));
         		$scope.loggedIn = true;
         		$scope.username = authParams.account_username
+
+            if(authParams.state!==state)
+              alert('possible spoofed response');
 			});
 	}
 });
