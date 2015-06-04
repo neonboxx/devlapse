@@ -76,14 +76,19 @@ devlapse.controller('LoginControl', function ($scope) {
   				var tokensttr = redirect_url.substring(redirect_url.indexOf('#access_token')+1);
         		authParams = JSON.parse('{"'+tokensttr.replace(/=/g,'":"').replace(/&/g,'","')+'"}')
         		var accessToken = "Bearer "  + authParams.access_token;
+            var state_pattern = '?state=';
+            var state_loc = redirect_url.indexOf(state_pattern);
+            var responseState =state_loc>-1? redirect_url.substring(state_loc+state_pattern.length,state_loc+state_pattern.length+state.length):undefined;
+        		
 
-        		localStorage.setItem("token", accessToken);
+            localStorage.setItem("token", accessToken);
         		localStorage.setItem("auth_params", JSON.stringify(authParams));
         		$scope.loggedIn = true;
         		$scope.username = authParams.account_username
 
-            if(authParams.state!==state)
+            if(!responseState || state!==responseState)
               alert('possible spoofed response');
+            $scope.$apply();
 			});
 	}
 });
