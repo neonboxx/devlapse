@@ -1,10 +1,10 @@
 {
-  "name": "Dev-Lapse",
-  "version": "0.0.2",
+  "name": "Devshot",
+  "version": "0.0.3",
   "key":"dkeekkkmghhfidchildgjpdgodidjkmi",
   "manifest_version": 2,
-  "description": "Log your web development in images",
-  "homepage_url": "http://www.senior.co.uk",
+  "description": "Automatically log your web development in screenshots",
+  "homepage_url": "https://github.com/neonboxx/devlapse",
   "icons": {
     "16": "icons/devshot_logo_16.png",
     "48": "icons/devshot_logo_48.png",
@@ -20,7 +20,7 @@
   },
   "browser_action": {
     "default_icon": "icons/devshot_logo_19.png",
-    "default_title": "Dev-Lapse",
+    "default_title": "Devshot",
     "default_popup": "src/browser_action/browser_action.html"
   },
   "permissions": [
@@ -36,8 +36,8 @@
   "oauth2":{
     "authorize_url":"https://api.imgur.com/oauth2/authorize",
     "refresh_url":"https://api.imgur.com/oauth2/token",
-    "client_id":"294b9e58049ee94",
-    "client_secret":"4ee2dfe26eafb786b60ac7399aa6c8b4357343e5",
+    "client_id":"31c017a35348462",
+    "client_secret":"003651a5352c5d5c44542a97439b434624f0cfd6",
     "scopes": [
       ""
     ]
