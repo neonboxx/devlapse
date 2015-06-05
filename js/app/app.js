@@ -1,7 +1,17 @@
-var devlapse = angular.module('devlapse', []);
+var devlapse = angular.module('devlapse', ['ngResource']);
 var manifest = chrome.runtime.getManifest();
 
 devlapse.controller('DomainListControl', function ($scope) {
+
+  // var User = $resource('/user/:userId', {userId:'@id'});
+  // User.get({userId:123}, function(u, getResponseHeaders){
+  //   u.abc = true;
+  //   u.$save(function(u, putResponseHeaders) {
+  //     //u => saved user object
+  //     //putResponseHeaders => $http header getter
+  //   });
+  // });
+  
   try{
 		$scope.domains = JSON.parse(localStorage.getItem('domains'));	
   }
