@@ -22,3 +22,6 @@
 	.domain-header,.domain-footer{
 		background-color: darkgrey;
 	}
+	.ng-hide{
+		display: none;
+	}

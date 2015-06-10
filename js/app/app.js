@@ -1,7 +1,7 @@
 var devlapse = angular.module('devlapse', []);
 var manifest = chrome.runtime.getManifest();
 
-devlapse.controller('DomainListControl', function ($scope) {
+devlapse.controller('DomainListControl',['$scope','$http', function ($scope,$http) {
   try{
 		$scope.domains = JSON.parse(localStorage.getItem('domains'));	
   }
@@ -36,11 +36,53 @@ devlapse.controller('DomainListControl', function ($scope) {
   $scope.saveDomains = function(){
   	localStorage.setItem('domains',JSON.stringify($scope.domains))
   }
+  $scope.albums = [
+    {title:"No Album", id:""}
+  ];$scope.selectedAlbum = $scope.albums[0];
+  
+            
+  var req = {
+   method: 'GET',
+   url: 'https://api.imgur.com/3/account/me/albums',
+   headers: {
+     'Authorization': localStorage.getItem('token')
+   }
+  }
+  $http(req).
+   success(function(response, status, headers, config) {
+         $scope.albums=$scope.albums.concat(response.data);
 
+   }).
+   error(function(data, status, headers, config) {
+        if(status == '403')
+        {//refresh token if needs be, this has to be refactored into a service!
+          var auth_params = JSON.parse(localStorage.getItem('auth_params'));
+          var failedReq = config;
+          var tokenReq = {
+                      url: manifest.oauth2.refresh_url,
+                      type: 'post',
+                      data: {
+                          refresh_token:auth_params.refresh_token,
+                          client_id:manifest.oauth2.client_id,
+                          client_secret:manifest.oauth2.client_secret,
+                          grant_type:'refresh_token'
+                      },
+                      headers: {
+                          'Authorization': localStorage.getItem('token')
+                      }
+                    }
+                    $http(tokenReq).success(function(response, status, headers, config) {
+                      var token = "Bearer "+response.access_token;
+                          localStorage.setItem('auth_params',JSON.stringify(response));
+                          localStorage.setItem('token',token);
+                          failedReq.headers['Authorization'] = token;
+                          $.ajax(failedReq);
+                    })
+        }
+    });
+  
 
-
-  console.log($scope.domains)
-});
+}]);
 
 devlapse.controller('LoginControl', function ($scope) {
 	

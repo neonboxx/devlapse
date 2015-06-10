@@ -1,5 +1,5 @@
 {
-  "name": "Dev-Lapse",
+  "name": "Devshot",
   "version": "0.0.2",
   "key":"dkeekkkmghhfidchildgjpdgodidjkmi",
   "manifest_version": 2,
@@ -20,7 +20,7 @@
   },
   "browser_action": {
     "default_icon": "icons/devshot_logo_19.png",
-    "default_title": "Dev-Lapse",
+    "default_title": "Devshot",
     "default_popup": "src/browser_action/browser_action.html"
   },
   "permissions": [
