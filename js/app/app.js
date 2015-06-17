@@ -54,30 +54,31 @@ devlapse.controller('DomainListControl',['$scope','$http', function ($scope,$htt
 
    }).
    error(function(data, status, headers, config) {
+     console.log([data, status, headers, config])
         if(status == '403')
         {//refresh token if needs be, this has to be refactored into a service!
           var auth_params = JSON.parse(localStorage.getItem('auth_params'));
           var failedReq = config;
           var tokenReq = {
                       url: manifest.oauth2.refresh_url,
-                      type: 'post',
+                      method: 'POST',
                       data: {
                           refresh_token:auth_params.refresh_token,
                           client_id:manifest.oauth2.client_id,
                           client_secret:manifest.oauth2.client_secret,
                           grant_type:'refresh_token'
-                      },
-                      headers: {
-                          'Authorization': localStorage.getItem('token')
                       }
                     }
                     $http(tokenReq).success(function(response, status, headers, config) {
+                      console.log([response, status, headers, config])
                       var token = "Bearer "+response.access_token;
                           localStorage.setItem('auth_params',JSON.stringify(response));
                           localStorage.setItem('token',token);
                           failedReq.headers['Authorization'] = token;
                           $.ajax(failedReq);
-                    })
+                    }).error(function(response, status, headers, config) {
+                      console.log([response, status, headers, config])
+	         });
         }
     });
   

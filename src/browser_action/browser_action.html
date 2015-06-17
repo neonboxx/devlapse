@@ -8,46 +8,74 @@
 
 <div id="mainPopup" ng-app="devlapse" ng-csp>
 <div id="login" ng-controller="LoginControl">
-<div>
-	<a href="#" ng-show="!loggedIn" ng-click="login()">Log in to imgur</a>
-	<a href="#" ng-show="loggedIn" ng-click="logout()">Log out {{username}}</a> 
-</div>
-<div>
-<div id="domain-list" ng-show="loggedIn" ng-controller="DomainListControl">
+	<a href="#" ng-show="!loggedIn" ng-click="login()" class="button_imgur">Log in to imgur</a>
+	<a href="#" ng-show="loggedIn" ng-click="logout()" class="button_imgur">Log out {{username}}</a> 
+
+<div ng-show="loggedIn">
+<div id="domain-list"  ng-controller="DomainListControl">
 	<ul>
  		<li ng-repeat="domain in domains">
+ 			<input class="chk_enabled" type="checkbox" ng-change="saveDomains()" ng-model="domain.enabled"/>
+ 			<div>
  			<div class="domain-header">
- 				<p ng-click='showBody=!showBody'>
- 					<span class="domain-last-image" ng-if="domain.lastimage"><a target="blank" href="{{domain.lastimage}}"><img ng- src="{{$parent.getThumb(domain.lastimage)}}" width="48px" /></a></span>
- 					<span class="domain-host"><i class="fa fa-globe"></i>{{domain.host}}</span> 
- 					<span class="domain-delay"><i class="fa fa-clock-o"></i>{{domain.delay}}</span> 
+ 					<h3 class="domain-host">{{domain.host}}</h3> 
+
+ 					<span class="domain-last-image" ng-show="domain.lastimage">
+	 					<a target="blank" href="{{domain.lastimage}}">
+	 						<img src="{{$parent.getThumb(domain.lastimage)}}" width="48px" />
+	 					</a>
+ 					</span>
  					<span class="domain-count"><i class="fa fa-camera-retro"></i>{{domain.count}}</span>
- 					<span class="domain-options"><a href='#'><i class="fa fa-cog"></i></a></span>
- 				</p>
+ 					<span class="domain-options"><a ng-click='showBody=!showBody' class="button" href='#'><i class="fa fa-cog"></i>Edit</a></span>
  			</div>
  			<div class="domain-body" ng-show='showBody'>
-	 			<p>Host Url:<input ng-change="saveDomains()" ng-model="domain.host"></p>
-	 			<p>Album:  <select  ng-change="saveDomains()"  ng-options="item.id as item.title for item in albums" ng-model="domain.album"></select></p>
-	 			<p>Time delay (after refresh): <input type="number" ng-change="saveDomains()" ng-model="domain.delay"/></p>
-	 			<p>Number of images: {{domain.count}}</p>
-	 			<p> Enabled: <input type="checkbox" ng-change="saveDomains()" ng-model="domain.enabled"/></p>
+ 				<p>
+	 			<label>Host Url:</label>
+	 			<input ng-change="saveDomains()" ng-model="domain.host">
+	 			</p>
 	 			<p>
+				<label>Album: </label>
+				<select  ng-change="saveDomains()"  ng-options="item.id as item.title for item in albums" ng-model="domain.album"></select>
+				</p>
+				<label>Time delay: </label>
+	 			<input type="number" ng-change="saveDomains()" ng-model="domain.delay"/>
+	 			</p>
+
+	 			<p style="padding-top:10px;">
 	 			<span ng-repeat="image in domain.images">
 	 				<a target="blank" href="{{image}}"><img src="{{$parent.getThumb(image)}}" width="64px" /></a>	
 	 			</span>
 	 			</p>
-	 			</div><div class="domain-footer">
-	 			<p><a href='#' ng-click="removeDomain(item)">Remove</a>   <a href="http://imgur.com/a/{{domain.album}}" target="blank">Go to album</a></p>
+
+	 			</div>
+
+	 			<div class="domain-footer">	 			
+	 			<p>
 	 			
+	 			<a href='#' ng-click="removeDomain(item)" class="button red">Remove</a>   
+	 			<a href="http://imgur.com/a/{{domain.album}}" target="blank" class="button green">Go to album</a>
+	 			</p>
+	 			
+ 			</div>
  			</div>
  		</li>
  	</ul>
  	
- 	<p>Host Url: <input ng-model="newDomain.host"></p>
- 	<p>Album: <select ng-options="item.id as item.title for item in albums" ng-model="newDomain.album"></select></p>
- 	<p>Time delay (after refresh): <input type="number" ng-model="newDomain.delay"/></p>
- 	<p> Enabled: <input type="checkbox" ng-model="newDomain.enabled"/></p>
- 	<p><a href='#' ng-click='addDomain()'>Add</a></p>
+ 	<p>
+ 	<label>Host Url: </label>
+ 	<input ng-model="newDomain.host">
+	</p><label>Album:</label>
+ 	<select ng-options="item.id as item.title for item in albums" ng-model="newDomain.album"></select></p>
+ 	<p>
+ 	<label>Time delay: </label>
+ 	<input type="number" ng-model="newDomain.delay"/>
+ 	</p
+ 	<p>
+ 	<label>Enabled: </label>
+ 	<input type="checkbox" ng-model="newDomain.enabled"/>
+ 	</p>
+ 	<p><a href='#' class="button" ng-click='addDomain()'>Add</a></p>
 </div>
- 	</div>
+</div>
+</div>
 </div>

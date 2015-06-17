@@ -1,14 +1,13 @@
 	#mainPopup {
 		padding: 10px;
-		height: 600px;
+		height: 500px;
 		width: 400px;
 		font-family: Helvetica, Ubuntu, Arial, sans-serif;
+		font-size:14px;
+		overflow-y:scroll;
 	}
 	h1 {
 		font-size: 2em;
-	}
-	.domain-options{
-		float:right;
 	}
 	li{
 		list-style: none;	
@@ -17,11 +16,106 @@
 		padding: 0px;
 	}
 	.domain-body{
-		background-color: grey;
 	}
 	.domain-header,.domain-footer{
-		background-color: darkgrey;
+		padding:10px 0;
+	}
+	.domain-header{
+		font-size: 18px;
+	}
+	.domain-header i{
+		display:inline-block;
+		margin-right:4px;
+	}
+
+	.domain-header{
+		position:relative;
+	}
+	
+	.domain-footer{
+		margin-bottom: 10px;
+	}
+	[class*="button"]{
+		display:inline-block;
+		padding:4px 8px;
+		background-color: #2ac6f3;
+		color:#fff !important;
+		margin-right:10px;
+		text-decoration: none !important;
+		font-size:14px;
+		font-weight: normal;
+		transition:all 300ms;
+	}
+	[class*="button"]:hover{
+		opacity:0.7;
+	}
+	.button_imgur,
+	.button.green{
+		background-color: #85bf25;
+	}
+	.button.red{
+		background-color: crimson;
+	}
+
+	label{
+		clear:both;
+		display:inline-block;
+		width:80px;
+		margin-bottom: 10px;
+	}
+
+	input[type=text]{
+		padding:3px;
+		border: 1px solid #ddd;
+		margin-bottom: 10px;
+	}
+
+	#domain-list li{
+		display:block;
+		border-bottom:1px solid #eee;
+		position:relative;
+	}
+
+	.domain-last-image{
+		box-shadow: 0 0 2px rgba(0,0,0,0.2);
+		display:inline-block;
+		vertical-align: middle;
+		margin-right:20px;
+	}
+
+	p{
+		margin:0;
+		padding:0;
+	}
+
+	.domain-host{
+		font-weight: normal;
+		padding:0 0 10px 30px;
+		margin:0;
+	}
+
+	.domain-delay,
+	.domain-count{
+		display:inline-block;
+		padding-right:10px;
+	}
+
+	input.chk_enabled{
+		position:absolute !important;
+		left:0;
+		top:13px;
+		z-index:999;
+	}
+
+	.chk_enabled + div{
+		opacity:0.5;
+		-webkit-filter: grayscale(100%);
+		transition:all 300ms;
+	}
+	.chk_enabled:checked + div{
+		opacity:1;
+		-webkit-filter: grayscale(0%);
 	}
 	.ng-hide{
-		display: none;
+		display:none;
 	}
